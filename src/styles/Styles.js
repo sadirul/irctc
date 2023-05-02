@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         height: 40,
-        margin: 12,
+        marginHorizontal: 12,
+        marginVertical: 8,
         borderWidth: 1,
         padding: 12,
     },
@@ -39,7 +40,22 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 12,
         height: 40,
-        
+    },
+    inputTitleStyle: {
+        marginLeft: 10,
+        fontWeight: 'bold'
+    },
+    getUseridButton: {
+        margin: 12,
+        backgroundColor: 'black',
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    getUseridText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 22
     }
 });
 
