@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import {
-  View, Text,
-} from 'react-native';
-
+import React from 'react'
+import { Text, StatusBar, View } from 'react-native'
+import Home from './src/screens/Home';
 
 const App = () => {
   return (
-    <View>
-      <Text>Hello World!</Text>
-    </View>
-  );
-};
+    <>
+      <StatusBar backgroundColor='#02A8F4'/>
+      <Home/>
+    </>
+  )
+}
 
-export default App;
+export default App
