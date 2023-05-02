@@ -5783,12 +5783,19 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-date-picker@^4.2.13":
+  "integrity" "sha512-cQ3k+ExXggAnytomeNGNrtV/l2a7WzVUeWKo7Gs2pv/z3TCjjlmKn0ZBMPgcThrFAgFMxgYI0XzKVKT7TPsOmw=="
+  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.13.tgz"
+  "version" "4.2.13"
+  dependencies:
+    "prop-types" "^15.8.1"
+
 "react-native-gradle-plugin@^0.71.17":
   "integrity" "sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.17.tgz"
   "version" "0.71.17"
 
-"react-native@0.71.7":
+"react-native@>= 0.64.3", "react-native@0.71.7":
   "integrity" "sha512-Id6iRLS581fJMFGbBl1jP5uSmjExtGOvw5Gvh7694zISXjsRAsFMmU+izs0pyCLqDBoHK7y4BT7WGPGw693nYw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.7.tgz"
   "version" "0.71.7"
@@ -5850,7 +5857,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@18.2.0":
+"react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 17.0.1", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

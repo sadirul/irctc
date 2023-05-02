@@ -25,6 +25,12 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         fontSize: 38,
         color: '#141823'
+    },
+    inputStyle: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 12,
     }
 });
 
