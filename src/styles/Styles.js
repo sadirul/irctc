@@ -3,15 +3,28 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     homeContainer: {
         flex: 1,
-        backgroundColor: '#f4ebeb',
+        backgroundColor: 'white',
     },
     logoContainer: {
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 16,
+        marginTop: 16,
     },
     logoImage: {
-        width: 95,
-        height: 95,
+        width: 96,
+        height: 96,
+    },
+    headerTextStyle: {
+        fontFamily: 'Helvetica',
+        fontWeight: 800,
+        fontSize: 48,
+        color: '#141823'
+    },
+    subtitleStyle: {
+        fontFamily: 'Helvetica',
+        fontWeight: 600,
+        fontSize: 38,
+        color: '#141823'
     }
 });
 

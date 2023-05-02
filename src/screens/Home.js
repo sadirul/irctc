@@ -10,7 +10,8 @@ const Home = () => {
         <View style={styles.logoContainer}>
             <Image style={styles.logoImage} source={Icon}/>
         </View>
-        <Text>Hello</Text>
+        <Text style={{...styles.headerTextStyle, marginHorizontal: 8}}>Hello,</Text>
+        <Text style={{...styles.subtitleStyle, marginHorizontal: 8}}>User</Text>
     </View>
   )
 }
