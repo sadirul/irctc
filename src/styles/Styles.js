@@ -5,6 +5,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f4ebeb',
     },
+    logoContainer: {
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    logoImage: {
+        width: 95,
+        height: 95,
+    }
 });
 
 export default styles
