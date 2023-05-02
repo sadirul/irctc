@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, Image, TextInput } from 'react-native'
+import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import styles from '../styles/Styles';
 import DatePicker from 'react-native-date-picker'
 
@@ -7,7 +7,7 @@ import DatePicker from 'react-native-date-picker'
 
 const Home = () => {
   const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const Icon = require('../images/logo.png');
   return (
     <View style={styles.homeContainer}>
@@ -21,19 +21,29 @@ const Home = () => {
         placeholder='Enter Email or Phone'
 
       />
-      <DatePicker
-        mode='date'
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      />
+      <TouchableOpacity onPress={() => setOpen((prev) => !prev)}>
+        <View
+          style={styles.datePickerView}
+          placeholder='Enter Email or Phone'
+
+        >
+          <Text>{date.toISOString().split('T')[0]}</Text>
+          <DatePicker
+            mode='date'
+            modal
+            open={open}
+            date={date}
+            onConfirm={(date) => {
+              setOpen(false)
+              setDate(date)
+            }}
+            onCancel={() => {
+              setOpen(false)
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+
     </View>
   )
 }

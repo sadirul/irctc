@@ -31,6 +31,15 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 12,
+    },
+    datePickerView: {
+        // backgroundColor: 'red',
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        margin: 12,
+        height: 40,
+        
     }
 });
 
