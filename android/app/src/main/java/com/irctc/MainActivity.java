@@ -1,4 +1,4 @@
-package com.irctc;
+package com.irctc.recover;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -1,4 +1,4 @@
-package com.irctc;
+package com.irctc.recover;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

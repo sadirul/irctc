@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
-import styles from '../styles/Styles';
+import NetInfo from '@react-native-community/netinfo'
 import DatePicker from 'react-native-date-picker'
+import { useState, useEffect } from 'react'
 import Helper from '../../Helper/Helper'
-
-
+import styles from '../styles/Styles'
+import { 
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+  Alert,
+  ActivityIndicator,
+  StatusBar,
+  Keyboard 
+} from 'react-native'
 
 const Home = () => {
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [emailOrPhone, setEmailOrPhone] = useState('')
-  // const [open, setOpen] = useState(false)
-  const Icon = require('../images/logo.png')
+  const [isInternet, setIsInternet] = useState(false);
+  const Icon = require('../images/icon.png')
   const {requestURL} = Helper();
 
   const getIRCTCUserid = async () => {
@@ -22,6 +33,11 @@ const Home = () => {
 
     if(!date){
       ToastAndroid.show("Please enter DOB!", ToastAndroid.SHORT)
+      return false
+    }
+
+    if(!isInternet){
+      ToastAndroid.show("Please connect Internet!", ToastAndroid.SHORT)
       return false
     }
     let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -35,25 +51,34 @@ const Home = () => {
     }
 
     let url = `${requestURL}/forgotDetails?requestType=U&email=${email}&mobile=${mobile}&dob=${date.toISOString().split('T')[0].replace(/-/g, '')}&userLoginId=&flavour=web&otpType=%27%27`
-    // console.log(url)
+    setLoading(true)
+    Keyboard.dismiss()
     try {
       const response = await fetch(
         url,
       );
       const json = await response.json();
-      // return json.movies;
-      alert(json.Status)
+      Alert.alert(json.Error ? 'Error!' : 'Success', json.Error ? json.Error : json.Status)
+      setLoading(false)
     } catch (error) {
       console.error(error);
     }
   }
 
-  useEffect(() => {
-    // getIRCTCUserid();
+  
+  useEffect(()=>{
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsInternet(state.isConnected);
+    });
+    return () =>{
+      unsubscribe();
+    }
   }, []);
 
 
   return (
+    <>
+    <StatusBar backgroundColor='#141823'/>
     <View style={styles.homeContainer}>
       <View style={styles.logoContainer}>
         <Image style={styles.logoImage} source={Icon} />
@@ -75,7 +100,7 @@ const Home = () => {
         <View
           style={styles.datePickerView}
         >
-          <Text>{date.toISOString().split('T')[0]}</Text>
+          <Text style={styles.dateInput}>{date.toISOString().split('T')[0]}</Text>
           <DatePicker
             mode='date'
             modal
@@ -95,12 +120,20 @@ const Home = () => {
       <TouchableOpacity
         onPress={() => getIRCTCUserid()}
       >
-        <View style={styles.getUseridButton}>
-          <Text style={styles.getUseridText}>Get IRCTC User ID</Text>
-        </View>
+        {
+          !loading ? (
+            <View style={styles.getUseridButton}>
+              <Text style={styles.getUseridText}>GET USER ID</Text>
+            </View>
+          ) : (
+            <ActivityIndicator size="large" color="#0000ff" />
+          )
+        }
       </TouchableOpacity>
 
     </View>
+    
+  </>
   )
 }
 
