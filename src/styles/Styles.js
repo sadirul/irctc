@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 12,
         fontSize: 15,
+        color: 'black',
     },
     datePickerView: {
         borderColor: 'black',
