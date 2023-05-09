@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     },
     dateInput: {
         fontSize: 15,
+        color: 'gray'
     },
     inputTitleStyle: {
         marginLeft: 12,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     getUseridText: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 18,
     },
 });
 

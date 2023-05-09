@@ -3,7 +3,7 @@ import DatePicker from 'react-native-date-picker'
 import { useState, useEffect } from 'react'
 import Helper from '../../Helper/Helper'
 import styles from '../styles/Styles'
-import { 
+import {
   Text,
   View,
   Image,
@@ -13,7 +13,8 @@ import {
   Alert,
   ActivityIndicator,
   StatusBar,
-  Keyboard 
+  Keyboard,
+  BackHandler
 } from 'react-native'
 
 const Home = () => {
@@ -23,29 +24,54 @@ const Home = () => {
   const [emailOrPhone, setEmailOrPhone] = useState('')
   const [isInternet, setIsInternet] = useState(false);
   const Icon = require('../images/icon.png')
-  const {requestURL} = Helper();
+  const { requestURL } = Helper();
+
+  const [backPressed, setBackPressed] = useState(0);
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress
+    );
+
+    return () => {
+      backHandler.remove();
+    };
+  }, [backPressed]);
+
+  const handleBackPress = () => {
+    if (backPressed && backPressed + 2000 >= Date.now()) {
+      // If back button pressed twice within 2 seconds, show a toast and exit the app
+      BackHandler.exitApp();
+    } else {
+      // Otherwise, show a toast message and set the backPressed flag to true
+      ToastAndroid.show('Press back again to exit', ToastAndroid.SHORT);
+      setBackPressed(Date.now());
+    }
+    return true;
+  };
 
   const getIRCTCUserid = async () => {
-    if(!emailOrPhone){
+    if (!emailOrPhone) {
       ToastAndroid.show("Please enter email or phone!", ToastAndroid.SHORT)
       return false
     }
 
-    if(!date){
+    if (!date) {
       ToastAndroid.show("Please enter DOB!", ToastAndroid.SHORT)
       return false
     }
 
-    if(!isInternet){
+    if (!isInternet) {
       ToastAndroid.show("Please connect Internet!", ToastAndroid.SHORT)
       return false
     }
     let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     let email, mobile;
-    if (emailOrPhone.match(emailRegex)){
+    if (emailOrPhone.match(emailRegex)) {
       email = emailOrPhone
       mobile = ''
-    }else{
+    } else {
       email = ''
       mobile = emailOrPhone
     }
@@ -65,12 +91,12 @@ const Home = () => {
     }
   }
 
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsInternet(state.isConnected);
     });
-    return () =>{
+    return () => {
       unsubscribe();
     }
   }, []);
@@ -78,62 +104,63 @@ const Home = () => {
 
   return (
     <>
-    <StatusBar backgroundColor='#141823'/>
-    <View style={styles.homeContainer}>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logoImage} source={Icon} />
-      </View>
-      <Text style={{ ...styles.headerTextStyle, marginHorizontal: 8 }}>Hello,</Text>
-      <Text style={{ ...styles.subtitleStyle, marginHorizontal: 8 }}>User</Text>
-
-      <Text style={styles.inputTitleStyle}>Enter Email or Phone : </Text>
-      <TextInput
-        style={styles.inputStyle}
-        placeholder='Enter Email or Phone'
-        onChangeText={(text) => setEmailOrPhone(text)}
-        value={emailOrPhone}
-
-      />
-
-    <Text style={styles.inputTitleStyle}>DOB : </Text>
-      <TouchableOpacity onPress={() => setOpen((prev) => !prev)}>
-        <View
-          style={styles.datePickerView}
-        >
-          <Text style={styles.dateInput}>{date.toISOString().split('T')[0]}</Text>
-          <DatePicker
-            mode='date'
-            modal
-            open={open}
-            date={date}
-            onConfirm={(date) => {
-              setOpen(false)
-              setDate(date)
-            }}
-            onCancel={() => {
-              setOpen(false)
-            }}
-          />
+      <StatusBar backgroundColor='#141823' />
+      <View style={styles.homeContainer}>
+        <View style={styles.logoContainer}>
+          <Image style={styles.logoImage} source={Icon} />
         </View>
-      </TouchableOpacity>
+        <Text style={{ ...styles.headerTextStyle, marginHorizontal: 8 }}>Hello,</Text>
+        <Text style={{ ...styles.subtitleStyle, marginHorizontal: 8 }}>User</Text>
 
-      <TouchableOpacity
-        onPress={() => getIRCTCUserid()}
-      >
-        {
-          !loading ? (
-            <View style={styles.getUseridButton}>
-              <Text style={styles.getUseridText}>GET USER ID</Text>
-            </View>
-          ) : (
-            <ActivityIndicator size="large" color="#0000ff" />
-          )
-        }
-      </TouchableOpacity>
+        <Text style={styles.inputTitleStyle}>Enter Email or Phone : </Text>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder='Enter Email or Phone'
+          onChangeText={(text) => setEmailOrPhone(text)}
+          value={emailOrPhone}
+          placeholderTextColor={'gray'}
 
-    </View>
-    
-  </>
+        />
+
+        <Text style={styles.inputTitleStyle}>DOB : </Text>
+        <TouchableOpacity onPress={() => setOpen((prev) => !prev)}>
+          <View
+            style={styles.datePickerView}
+          >
+            <Text style={styles.dateInput}>{date.toISOString().split('T')[0]}</Text>
+            <DatePicker
+              mode='date'
+              modal
+              open={open}
+              date={date}
+              onConfirm={(date) => {
+                setOpen(false)
+                setDate(date)
+              }}
+              onCancel={() => {
+                setOpen(false)
+              }}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => getIRCTCUserid()}
+        >
+          {
+            !loading ? (
+              <View style={styles.getUseridButton}>
+                <Text style={styles.getUseridText}>GET USER ID</Text>
+              </View>
+            ) : (
+              <ActivityIndicator size="large" color="#0000ff" />
+            )
+          }
+        </TouchableOpacity>
+
+      </View>
+
+    </>
   )
 }
 
