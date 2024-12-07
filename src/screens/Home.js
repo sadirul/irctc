@@ -22,52 +22,52 @@ const Home = () => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [emailOrPhone, setEmailOrPhone] = useState('')
-  const [isInternet, setIsInternet] = useState(false);
+  const [isInternet, setIsInternet] = useState(false)
   const Icon = require('../images/icon.png')
-  const { requestURL } = Helper();
+  const { requestURL } = Helper()
 
-  const [backPressed, setBackPressed] = useState(0);
+  const [backPressed, setBackPressed] = useState(0)
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       handleBackPress
-    );
+    )
 
     return () => {
-      backHandler.remove();
-    };
-  }, [backPressed]);
+      backHandler.remove()
+    }
+  }, [backPressed])
 
   const handleBackPress = () => {
     if (backPressed && backPressed + 2000 >= Date.now()) {
       // If back button pressed twice within 2 seconds, show a toast and exit the app
-      BackHandler.exitApp();
+      BackHandler.exitApp()
     } else {
       // Otherwise, show a toast message and set the backPressed flag to true
-      ToastAndroid.show('Press back again to exit', ToastAndroid.SHORT);
-      setBackPressed(Date.now());
+      ToastAndroid.show('Press back again to exit.', ToastAndroid.SHORT)
+      setBackPressed(Date.now())
     }
-    return true;
-  };
+    return true
+  }
 
   const getIRCTCUserid = async () => {
     if (!emailOrPhone) {
-      ToastAndroid.show("Please enter email or phone!", ToastAndroid.SHORT)
+      ToastAndroid.show("Enter email or phone!", ToastAndroid.SHORT)
       return false
     }
 
     if (!date) {
-      ToastAndroid.show("Please enter DOB!", ToastAndroid.SHORT)
+      ToastAndroid.show("Enter DOB!", ToastAndroid.SHORT)
       return false
     }
 
     if (!isInternet) {
-      ToastAndroid.show("Please connect Internet!", ToastAndroid.SHORT)
+      ToastAndroid.show("Please connect to Internet!", ToastAndroid.SHORT)
       return false
     }
-    let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    let email, mobile;
+    let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    let email, mobile
     if (emailOrPhone.match(emailRegex)) {
       email = emailOrPhone
       mobile = ''
@@ -82,24 +82,24 @@ const Home = () => {
     try {
       const response = await fetch(
         url,
-      );
-      const json = await response.json();
+      )
+      const json = await response.json()
       Alert.alert(json.Error ? 'Error!' : 'Success', json.Error ? json.Error : json.Status)
       setLoading(false)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
-      setIsInternet(state.isConnected);
-    });
+      setIsInternet(state.isConnected)
+    })
     return () => {
-      unsubscribe();
+      unsubscribe()
     }
-  }, []);
+  }, [])
 
 
   return (

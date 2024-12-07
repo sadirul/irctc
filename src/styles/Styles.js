@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     subtitleStyle: {
         fontFamily: 'Helvetica',
         fontWeight: 600,
-        fontSize: 38,
+        fontSize: 35,
         color: '#141823',
     },
     inputStyle: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     inputTitleStyle: {
         marginLeft: 12,
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 16,
         color: 'black',
     },
     getUseridButton: {
