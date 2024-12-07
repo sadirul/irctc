@@ -53,17 +53,17 @@ const Home = () => {
 
   const getIRCTCUserid = async () => {
     if (!emailOrPhone) {
-      ToastAndroid.show("Please enter email or phone!", ToastAndroid.SHORT)
+      ToastAndroid.show("Enter email or phone!", ToastAndroid.SHORT)
       return false
     }
 
     if (!date) {
-      ToastAndroid.show("Please enter DOB!", ToastAndroid.SHORT)
+      ToastAndroid.show("Enter DOB!", ToastAndroid.SHORT)
       return false
     }
 
     if (!isInternet) {
-      ToastAndroid.show("Please connect Internet!", ToastAndroid.SHORT)
+      ToastAndroid.show("Please connect to Internet!", ToastAndroid.SHORT)
       return false
     }
     let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -83,7 +83,7 @@ const Home = () => {
       const response = await fetch(
         url,
       );
-      const json = await response.json();
+      const json = await response.json()
       Alert.alert(json.Error ? 'Error!' : 'Success', json.Error ? json.Error : json.Status)
       setLoading(false)
     } catch (error) {
